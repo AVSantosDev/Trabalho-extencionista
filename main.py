@@ -49,10 +49,8 @@ def carregar_credenciais():
             json.dump({}, file)
     with open('usuarios.json', 'r') as file:
         return json.load(file)
-
+    
 # Função para salvar credenciais em um arquivo JSON
-
-
 def salvar_credenciais(credenciais):
     with open('usuarios.json', 'w') as file:
         json.dump(credenciais, file)
@@ -82,9 +80,7 @@ def verificar_senha():
     else:
         messagebox.showwarning('Erro', 'Nome de usuário não encontrado')
 
-# função após a verificação
-
-
+#criando janela de login com os input de dados
 def nova_janela():
     l_nome = Label(frame_cima, text='Usuario: '+credenciais[0], anchor=NE,
                    font=('Ivy 20'), bg=co1, fg=co4)
@@ -99,6 +95,7 @@ def nova_janela():
     l_nome.place(x=5, y=105)
 
 
+#criando janela de cadastro de usuario com os input
 def abrir_cadastro():
     janela_cadastro = Toplevel(janela)
     janela_cadastro.title('Cadastro de Usuario')
@@ -141,6 +138,8 @@ def abrir_cadastro():
                         show='*', font=("", 15), highlightthickness=1, relief='solid')
     e_senha_cad.place(x=14, y=230)
 
+
+    #função para cadastrar o usuario no arquivo json, pega os dados do input da tela de cadastro e salva no arquivo json
     def cadastrar_usuario():
         nome = e_nome_cad.get()
         idade = e_idade_cad.get()
@@ -160,13 +159,13 @@ def abrir_cadastro():
     b_confirmar_cad = Button(janela_cadastro, command=cadastrar_usuario, text='Cadastrar', width=39, height=2, font=(
         'Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
     b_confirmar_cad.place(x=15, y=270)
-
+    #botão de voltar ao menu de acesso
     b_voltar = Button(janela_cadastro, command=janela_cadastro.destroy, text='Voltar', width=39,
                       height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=RAISED, overrelief=RIDGE)
     b_voltar.place(x=15, y=320)
 
 
-# Configurando frame baixo
+# Configurando frame baixo tela inicial
 l_nome = Label(frame_baixo, text='Nome *', anchor=NW,
                font=('Ivy 10'), bg=co1, fg=co4)
 l_nome.place(x=10, y=20)
