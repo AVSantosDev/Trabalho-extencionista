@@ -1,1 +1,1 @@
-{"andre": {"idade": "29", "peso": "90", "altura": "1,77", "senha": "1234"}}
+{"cristiane": {"nome": "cristiane", "idade": 29, "peso": 88, "altura": 1.68, "genero": "Feminino", "senha": "1234"}, "andre": {"nome": "andre", "idade": 29, "peso": 98, "altura": 1.77, "genero": "Masculino", "senha": "1234"}, "ANDRE": {"nome": "ANDRE", "idade": 29, "peso": 88, "altura": 1.77, "genero": "Masculino", "senha": "1234"}}
