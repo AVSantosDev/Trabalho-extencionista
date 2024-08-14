@@ -147,26 +147,6 @@ class inicioDoPrograma:
         except FileNotFoundError:
             return []
 
-    # def nova_janela(self, nome):
-    #     janela = tk.Tk()
-    #     janela.title("Tela Principal")
-    #     janela.geometry("500x400")
-
-    #     label_nova = ttk.Label(janela, text=f"Bem-vindo, {nome}!")
-    #     label_nova.pack(pady=20)
-
-    #     b_dados_usuario = Button(janela, text='Dados do Usuário', command=lambda: self.dados_usuario(
-    #         nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
-    #     b_dados_usuario.pack(pady=10)
-
-    #     b_exercicios = tk.Button(janela, text='Exercícios', command=lambda: self.exercicios(
-    #         nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
-    #     b_exercicios.pack(pady=10)
-
-    #     b_T_Login = tk.Button(janela, text='Voltar ao Login', command=lambda:label_nova(nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
-    #     b_T_Login.pack(pady=10)
-
-    #     janela.mainloop()
 
     def nova_janela(self, nome):
         janela = tk.Tk()
