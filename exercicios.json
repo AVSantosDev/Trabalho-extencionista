@@ -1,0 +1,7 @@
+{
+    "exercicios": [
+        {"nome": "Flexão", "repeticoes": 15, "duracao": "30s"},
+        {"nome": "Abdominal", "repeticoes": 20, "duracao": "45s"},
+        {"nome": "Agachamento", "repeticoes": 20, "duracao": "30s"}
+    ]
+}
