@@ -147,7 +147,6 @@ class inicioDoPrograma:
         except FileNotFoundError:
             return []
 
-
     def nova_janela(self, nome):
         janela = tk.Tk()
         janela.title("Tela Principal")
@@ -156,19 +155,20 @@ class inicioDoPrograma:
         label_nova = ttk.Label(janela, text=f"Bem-vindo, {nome}!")
         label_nova.pack(pady=20)
 
-        b_dados_usuario = Button(janela, text='Dados do Usuário', command=lambda: self.dados_usuario(nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
+        b_dados_usuario = Button(janela, text='Dados do Usuário', command=lambda: self.dados_usuario(
+            nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
         b_dados_usuario.pack(pady=10)
 
-        b_exercicios = tk.Button(janela, text='Exercícios', command=lambda: self.exercicios(nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+        b_exercicios = tk.Button(janela, text='Exercícios', command=lambda: self.exercicios(
+            nome), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
         b_exercicios.pack(pady=10)
 
-
-        b_Fechar = tk.Button(janela, text='Fechar', command=janela.destroy, width=39, height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+        b_Fechar = tk.Button(janela, text='Fechar', command=janela.destroy, width=39, height=2, font=(
+            'Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
         b_Fechar.pack(pady=10)
 
-
         janela.mainloop()
-    
+
     def dados_usuario(self, nome):
         janela_dados = tk.Toplevel()
         janela_dados.title("Dados do Usuário")
@@ -195,8 +195,6 @@ class inicioDoPrograma:
             b_voltar.pack(pady=10)
 
         janela_dados.mainloop()
-
-    
 
     def exercicios(self, nome):
         janela_exercicio = tk.Toplevel()
@@ -238,12 +236,15 @@ class inicioDoPrograma:
             if exercicio['nome'] == "Corrida":
                 var_tempo_ou_distancia = tk.StringVar(value='Tempo')
 
-                label_opcao = tk.Label(frame, text="Escolha a opção para Corrida:")
+                label_opcao = tk.Label(
+                    frame, text="Escolha a opção para Corrida:")
                 label_opcao.pack(anchor=tk.W, pady=5)
 
-                rb_tempo = tk.Radiobutton(frame, text="Tempo", variable=var_tempo_ou_distancia, value="Tempo", font=('Ivy 10'))
+                rb_tempo = tk.Radiobutton(
+                    frame, text="Tempo", variable=var_tempo_ou_distancia, value="Tempo", font=('Ivy 10'))
                 rb_tempo.pack(anchor=tk.W, pady=5)
-                rb_distancia = tk.Radiobutton(frame, text="Distância (km)", variable=var_tempo_ou_distancia, value="Distância", font=('Ivy 10'))
+                rb_distancia = tk.Radiobutton(
+                    frame, text="Distância (km)", variable=var_tempo_ou_distancia, value="Distância", font=('Ivy 10'))
                 rb_distancia.pack(anchor=tk.W, pady=5)
 
                 label_tempo = tk.Label(frame, text="Tempo (min):")
@@ -257,20 +258,24 @@ class inicioDoPrograma:
                 e_distancia.pack(anchor=tk.W, pady=5)
 
                 # Adiciona um Checkbutton para corrida
-                cb_corrida = tk.Checkbutton(frame, text="Corrida", command=selecionar_corredor, font=('Ivy 10'))
+                cb_corrida = tk.Checkbutton(
+                    frame, text="Corrida", command=selecionar_corredor, font=('Ivy 10'))
                 cb_corrida.pack(anchor=tk.W, pady=5)
 
             else:
                 texto = f"{exercicio['nome']} - {exercicio['repeticoes']} repetições - {exercicio['duracao']}"
-                cb = tk.Checkbutton(frame, text=texto, command=lambda n=exercicio['nome']: adicionar_exercicio(n), font=('Ivy 10'))
+                cb = tk.Checkbutton(
+                    frame, text=texto, command=lambda n=exercicio['nome']: adicionar_exercicio(n), font=('Ivy 10'))
                 cb.pack(anchor=tk.W, pady=5)
 
         # Botão "Iniciar"
-        b_iniciar = tk.Button(frame, text='Iniciar', command=lambda: self.iniciar_exercicio(selecionados, janela_exercicio), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+        b_iniciar = tk.Button(frame, text='Iniciar', command=lambda: self.iniciar_exercicio(
+            selecionados, janela_exercicio), width=39, height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
         b_iniciar.pack(pady=10)
 
         # Botão "Voltar"
-        b_voltar = tk.Button(frame, text='Voltar para a Tela Principal', command=janela_exercicio.destroy, width=39, height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+        b_voltar = tk.Button(frame, text='Voltar para a Tela Principal', command=janela_exercicio.destroy,
+                             width=39, height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
         b_voltar.pack(pady=10)
 
     def iniciar_exercicio(self, selecionados, janela_exercicio):
@@ -283,7 +288,8 @@ class inicioDoPrograma:
         frame = ttk.Frame(janela_execucao)
         frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
-        label_titulo = tk.Label(frame, text="Exercícios Selecionados", font=('Ivy 12 bold'))
+        label_titulo = tk.Label(
+            frame, text="Exercícios Selecionados", font=('Ivy 12 bold'))
         label_titulo.pack(pady=10)
 
         index_atual = 0
@@ -292,7 +298,8 @@ class inicioDoPrograma:
         def concluir_exercicio(exercicio, index):
             # Atualiza o texto da label do exercício para incluir "Concluído"
             if index < len(labels_exercicios):
-                labels_exercicios[index].config(text=f"{exercicio} - Concluído")
+                labels_exercicios[index].config(
+                    text=f"{exercicio} - Concluído")
 
             # Atualiza o índice atual para o próximo exercício
             nonlocal index_atual
@@ -300,7 +307,8 @@ class inicioDoPrograma:
             if index_atual < len(labels_exercicios):
                 labels_exercicios[index_atual].config(state=tk.NORMAL)
             else:
-                tk.messagebox.showinfo("Concluído", "Todos os exercícios foram concluídos.")
+                tk.messagebox.showinfo(
+                    "Concluído", "Todos os exercícios foram concluídos.")
 
         for index, exercicio in enumerate(selecionados):
             texto = f"{exercicio}"
@@ -308,7 +316,8 @@ class inicioDoPrograma:
             label_exercicio.pack(anchor=tk.W, pady=5)
             labels_exercicios.append(label_exercicio)
 
-            b_concluir = tk.Button(frame, text='Concluir', command=lambda e=exercicio, i=index: concluir_exercicio(e, i), width=15, height=1, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+            b_concluir = tk.Button(frame, text='Concluir', command=lambda e=exercicio, i=index: concluir_exercicio(
+                e, i), width=15, height=1, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
             b_concluir.pack(anchor=tk.W, pady=5)
 
             # Desabilita o botão de conclusão para o próximo exercício, se houver
@@ -317,113 +326,110 @@ class inicioDoPrograma:
             else:
                 b_concluir.config(state=tk.DISABLED)
 
-        b_voltar = tk.Button(frame, text='Voltar para a Tela Principal', command=janela_execucao.destroy, width=39, height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
+        b_voltar = tk.Button(frame, text='Voltar para a Tela Principal', command=janela_execucao.destroy,
+                             width=39, height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=tk.RAISED, overrelief=tk.RIDGE)
         b_voltar.pack(pady=10)
-
-    
-
-
 
 
 def abrir_cadastro():
     global e_nome_cad, e_idade_cad, e_peso_cad, e_altura_cad, e_senha_cad
     global var_genero, janela_cadastro
 
-    janela_cadastro=Toplevel(app.janela_login)
+    janela_cadastro = Toplevel(app.janela_login)
     janela_cadastro.title('Cadastro de Usuário')
     janela_cadastro.geometry('310x600')
     janela_cadastro.configure(background=co1)
     janela_cadastro.resizable(width=FALSE, height=FALSE)
 
-    l_nome_cad=Label(janela_cadastro, text='Nome *',
+    l_nome_cad = Label(janela_cadastro, text='Nome *',
                        anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_nome_cad.place(x=10, y=10)
-    e_nome_cad=Entry(janela_cadastro, width=25, justify='left', font=(
+    e_nome_cad = Entry(janela_cadastro, width=25, justify='left', font=(
         "", 15), highlightthickness=1, relief='solid')
     e_nome_cad.place(x=14, y=30)
 
-    l_idade_cad=Label(janela_cadastro, text='Idade *',
+    l_idade_cad = Label(janela_cadastro, text='Idade *',
                         anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_idade_cad.place(x=10, y=70)
-    e_idade_cad=Entry(janela_cadastro, width=25, justify='left', font=(
+    e_idade_cad = Entry(janela_cadastro, width=25, justify='left', font=(
         "", 15), highlightthickness=1, relief='solid')
     e_idade_cad.place(x=14, y=90)
 
-    l_peso_cad=Label(janela_cadastro, text='Peso (kg) *',
+    l_peso_cad = Label(janela_cadastro, text='Peso (kg) *',
                        anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_peso_cad.place(x=10, y=130)
-    e_peso_cad=Entry(janela_cadastro, width=25, justify='left', font=(
+    e_peso_cad = Entry(janela_cadastro, width=25, justify='left', font=(
         "", 15), highlightthickness=1, relief='solid')
     e_peso_cad.place(x=14, y=150)
 
-    l_altura_cad=Label(janela_cadastro, text='Altura (m) *',
+    l_altura_cad = Label(janela_cadastro, text='Altura (m) *',
                          anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_altura_cad.place(x=10, y=190)
-    e_altura_cad=Entry(janela_cadastro, width=25, justify='left', font=(
+    e_altura_cad = Entry(janela_cadastro, width=25, justify='left', font=(
         "", 15), highlightthickness=1, relief='solid')
     e_altura_cad.place(x=14, y=210)
 
-    l_senha_cad=Label(janela_cadastro, text='Senha *',
+    l_senha_cad = Label(janela_cadastro, text='Senha *',
                         anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_senha_cad.place(x=10, y=250)
-    e_senha_cad=Entry(janela_cadastro, width=25, justify='left', font=(
+    e_senha_cad = Entry(janela_cadastro, width=25, justify='left', font=(
         "", 15), show='*', highlightthickness=1, relief='solid')
     e_senha_cad.place(x=14, y=270)
 
-    l_genero_cad=Label(janela_cadastro, text='Gênero *',
+    l_genero_cad = Label(janela_cadastro, text='Gênero *',
                          anchor=NW, font=('Ivy 10'), bg=co1, fg=co4)
     l_genero_cad.place(x=10, y=310)
 
-    var_genero=StringVar(value='Não especificado')
-    r1=Radiobutton(janela_cadastro, text='Masculino', variable=var_genero,
+    var_genero = StringVar(value='Não especificado')
+    r1 = Radiobutton(janela_cadastro, text='Masculino', variable=var_genero,
                      value='Masculino', bg=co1, fg=co4, font=('Ivy 10'))
     r1.place(x=10, y=340)
-    r2=Radiobutton(janela_cadastro, text='Feminino', variable=var_genero,
+    r2 = Radiobutton(janela_cadastro, text='Feminino', variable=var_genero,
                      value='Feminino', bg=co1, fg=co4, font=('Ivy 10'))
     r2.place(x=10, y=370)
-    r3=Radiobutton(janela_cadastro, text='Não-binário', variable=var_genero,
+    r3 = Radiobutton(janela_cadastro, text='Não-binário', variable=var_genero,
                      value='Não-binário', bg=co1, fg=co4, font=('Ivy 10'))
     r3.place(x=10, y=400)
-    r4=Radiobutton(janela_cadastro, text='Outro', variable=var_genero,
+    r4 = Radiobutton(janela_cadastro, text='Outro', variable=var_genero,
                      value='Outro', bg=co1, fg=co4, font=('Ivy 10'))
     r4.place(x=10, y=430)
 
-    b_cadastrar=Button(janela_cadastro, text='Cadastrar', command=app.cadastrar, width=39, height=2, font=(
+    b_cadastrar = Button(janela_cadastro, text='Cadastrar', command=app.cadastrar, width=39, height=2, font=(
         'Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
     b_cadastrar.place(x=14, y=490)
-    b_voltar=Button(janela_cadastro, command=janela_cadastro.destroy, text='Voltar', width=39,
+    b_voltar = Button(janela_cadastro, command=janela_cadastro.destroy, text='Voltar', width=39,
                       height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=RAISED, overrelief=RIDGE)
     b_voltar.place(x=15, y=530)
 
 
-app=inicioDoPrograma()
+app = inicioDoPrograma()
 
 # Tela de login
-app.janela_login=Tk()
+app.janela_login = Tk()
 app.janela_login.title('Tela de Login')
 app.janela_login.geometry('310x300')
 app.janela_login.configure(background=co1)
 app.janela_login.resizable(width=FALSE, height=FALSE)
 
-l_nome=Label(app.janela_login, text='Nome', anchor=NW,
+l_nome = Label(app.janela_login, text='Nome', anchor=NW,
                font=('Ivy 10'), bg=co1, fg=co4)
 l_nome.place(x=10, y=10)
-e_nome=Entry(app.janela_login, width=25, justify='left',
+e_nome = Entry(app.janela_login, width=25, justify='left',
                font=("", 15), highlightthickness=1, relief='solid')
 e_nome.place(x=14, y=30)
 
-l_senha=Label(app.janela_login, text='Senha', anchor=NW,
+l_senha = Label(app.janela_login, text='Senha', anchor=NW,
                 font=('Ivy 10'), bg=co1, fg=co4)
 l_senha.place(x=10, y=70)
-e_pass=Entry(app.janela_login, width=25, justify='left', font=(
+e_pass = Entry(app.janela_login, width=25, justify='left', font=(
     "", 15), show='*', highlightthickness=1, relief='solid')
 e_pass.place(x=14, y=90)
 
-b_entrar=Button(app.janela_login, text='Entrar', command=app.entrar, width=39,
+b_entrar = Button(app.janela_login, text='Entrar', command=app.entrar, width=39,
                   height=2, font=('Ivy 8 bold'), bg=co2, fg=co1, relief=RAISED, overrelief=RIDGE)
 b_entrar.place(x=14, y=150)
 
-b_cadastro=Button(app.janela_login, text='Cadastrar', command=abrir_cadastro, width=39,
+b_cadastro = Button(app.janela_login, text='Cadastrar', command=abrir_cadastro, width=39,
                     height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=RAISED, overrelief=RIDGE)
 b_cadastro.place(x=14, y=200)
 
