@@ -434,3 +434,4 @@ b_cadastro = Button(app.janela_login, text='Cadastrar', command=abrir_cadastro, 
 b_cadastro.place(x=14, y=200)
 
 app.janela_login.mainloop()
+print="Ola MUNdo"
