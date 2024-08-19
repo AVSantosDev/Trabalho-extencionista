@@ -2,6 +2,7 @@ import customtkinter as ctk
 from tkinter import messagebox, Tk, Listbox, Canvas, ttk
 from tkinter import *
 import json
+import tkinter as tk
 import os
 import math
 import time
@@ -542,74 +543,77 @@ class InicioDoPrograma:
         global e_nome_cad, e_idade_cad, e_peso_cad, e_altura_cad, e_senha_cad
         global var_genero, janela_cadastro
 
-        janela_cadastro = Toplevel(app.janela_login)
+        def cadastrarefechar():
+            app.cadastrar()
+            janela_cadastro.destroy()
+
+        janela_cadastro = ctk.CTkToplevel(app.janela_login)
         janela_cadastro.title('Cadastro de Usuário')
         janela_cadastro.geometry('400x600')
-        janela_cadastro.configure(background=co4)
-        janela_cadastro.resizable(width=FALSE, height=FALSE)
+        janela_cadastro.configure(bg=co4)  # CustomTkinter usa bg para o fundo
+        janela_cadastro.resizable(width=False, height=False)
 
-        l_nome_cad = Label(janela_cadastro, text='Nome *',
-                        anchor=NW, font=('Ivy 10'), bg=co4, fg=co1)
+        l_nome_cad = ctk.CTkLabel(janela_cadastro, text='Nome *',
+                                anchor='nw', font=('Ivy', 10), text_color=co1)
         l_nome_cad.place(x=10, y=10)
-        e_nome_cad = Entry(janela_cadastro, width=25, justify='left', font=(
-            "", 15), highlightthickness=1, relief='solid',bg=co4, fg=co1)
+        e_nome_cad = ctk.CTkEntry(janela_cadastro, width=370, font=("", 15), border_width=1,
+                                bg_color=co4, fg_color=co4)
         e_nome_cad.place(x=14, y=30)
 
-        l_idade_cad = Label(janela_cadastro, text='Idade *',
-                            anchor=NW, font=('Ivy 10'), bg=co4, fg=co1)
+        l_idade_cad = ctk.CTkLabel(janela_cadastro, text='Idade *',
+                                anchor='nw', font=('Ivy', 10), text_color=co1)
         l_idade_cad.place(x=10, y=70)
-        e_idade_cad = Entry(janela_cadastro, width=25, justify='left', font=(
-            "", 15), highlightthickness=1, relief='solid',bg=co4, fg=co1)
+        e_idade_cad = ctk.CTkEntry(janela_cadastro, width=370, font=("", 15), border_width=1,
+                                bg_color=co4, fg_color=co4)
         e_idade_cad.place(x=14, y=90)
 
-        l_peso_cad = Label(janela_cadastro, text='Peso (kg) *',
-                        anchor=NW, font=('Ivy 10'), bg=co4, fg=co1)
+        l_peso_cad = ctk.CTkLabel(janela_cadastro, text='Peso (kg) *',
+                                anchor='nw', font=('Ivy', 10), text_color=co1)
         l_peso_cad.place(x=10, y=130)
-        e_peso_cad = Entry(janela_cadastro, width=25, justify='left', font=(
-            "", 15), highlightthickness=1, relief='solid',bg=co4, fg=co1)
+        e_peso_cad = ctk.CTkEntry(janela_cadastro, width=370, font=("", 15), border_width=1,
+                                bg_color=co4, fg_color=co4)
         e_peso_cad.place(x=14, y=150)
 
-        l_altura_cad = Label(janela_cadastro, text='Altura (m) *',
-                            anchor=NW, font=('Ivy 10'), bg=co4, fg=co1)
+        l_altura_cad = ctk.CTkLabel(janela_cadastro, text='Altura (m) *',
+                                anchor='nw', font=('Ivy', 10), text_color=co1)
         l_altura_cad.place(x=10, y=190)
-        e_altura_cad = Entry(janela_cadastro, width=25, justify='left', font=(
-            "", 15), highlightthickness=1, relief='solid',bg=co4, fg=co1)
+        e_altura_cad = ctk.CTkEntry(janela_cadastro, width=370, font=("", 15), border_width=1,
+                                    bg_color=co4, fg_color=co4)
         e_altura_cad.place(x=14, y=210)
 
-        l_senha_cad = Label(janela_cadastro, text='Senha *',
-                            anchor=NW, font=('Ivy 10'), bg=co4, fg=co4)
+        l_senha_cad = ctk.CTkLabel(janela_cadastro, text='Senha *',
+                                anchor='nw', font=('Ivy', 10), text_color=co1)
         l_senha_cad.place(x=10, y=250)
-        e_senha_cad = Entry(janela_cadastro, width=25, justify='left', font=(
-            "", 15), show='*', highlightthickness=1, relief='solid',bg=co4, fg=co1)
+        e_senha_cad = ctk.CTkEntry(janela_cadastro, width=370, font=("", 15), border_width=1,
+                                show='*', bg_color=co4, fg_color=co4)
         e_senha_cad.place(x=14, y=270)
 
-        l_genero_cad = Label(janela_cadastro, text='Gênero *',
-                            anchor=NW, font=('Ivy 10'), bg=co4, fg=co1)
+        l_genero_cad = ctk.CTkLabel(janela_cadastro, text='Gênero *',
+                                    anchor='nw', font=('Ivy', 10), text_color=co1)
         l_genero_cad.place(x=10, y=310)
 
-        var_genero = StringVar(value='Não especificado')
-        r1 = Radiobutton(janela_cadastro, text='Masculino', variable=var_genero,
-                        value='Masculino', bg=co4, fg=co1, font=('Ivy 10'))
+        var_genero = tk.StringVar(value='Não especificado')
+        r1 = ctk.CTkRadioButton(janela_cadastro, text='Masculino', variable=var_genero,
+                                value='Masculino', font=('Ivy', 10))
         r1.place(x=10, y=340)
-        r2 = Radiobutton(janela_cadastro, text='Feminino', variable=var_genero,
-                        value='Feminino', bg=co4, fg=co1, font=('Ivy 10'))
+        r2 = ctk.CTkRadioButton(janela_cadastro, text='Feminino', variable=var_genero,
+                                value='Feminino', font=('Ivy', 10))
         r2.place(x=10, y=370)
-        r3 = Radiobutton(janela_cadastro, text='Não-binário', variable=var_genero,
-                        value='Não-binário', bg=co4, fg=co1, font=('Ivy 10'))
+        r3 = ctk.CTkRadioButton(janela_cadastro, text='Não-binário', variable=var_genero,
+                                value='Não-binário', font=('Ivy', 10))
         r3.place(x=10, y=400)
-        r4 = Radiobutton(janela_cadastro, text='Outro', variable=var_genero,
-                        value='Outro', bg=co4, fg=co1, font=('Ivy 10'))
+        r4 = ctk.CTkRadioButton(janela_cadastro, text='Outro', variable=var_genero,
+                                value='Outro', font=('Ivy', 10))
         r4.place(x=10, y=430)
 
-        b_cadastrar = Button(janela_cadastro, text='Cadastrar', command=app.cadastrar, width=39, height=2, font=(
-            'Ivy 8 bold'), bg=co3, fg=co1, relief=RAISED, overrelief=RIDGE)
+        b_cadastrar = ctk.CTkButton(janela_cadastro, text='Cadastrar', command=cadastrarefechar, width=370, height=40,
+                                    font=('Ivy', 12, 'bold'),fg_color=co3)
         b_cadastrar.place(x=14, y=490)
-        b_voltar = Button(janela_cadastro, command=janela_cadastro.destroy, text='Voltar', width=39,
-                        height=2, font=('Ivy 8 bold'), bg=co3, fg=co1, relief=RAISED, overrelief=RIDGE)
-        b_voltar.place(x=15, y=530)
+        b_voltar = ctk.CTkButton(janela_cadastro, text='Voltar', command=janela_cadastro.destroy, width=370, height=40,
+                                font=('Ivy', 12, 'bold'),fg_color=co3)
+        b_voltar.place(x=15, y=540)
 
-        # Não chame mainloop aqui
-        # self.janela_cadastro.mainloop()
+        janela_cadastro.mainloop()
 
     def iniciar_app(self):
         self.limpar_exercicios()
