@@ -8,7 +8,7 @@ import math
 import time
 from datetime import datetime
 
-# Cores
+# Definição das cores do projeto deixando padrolizado
 co0 = "#000000"  # Preta / black
 co1 = "#feffff"  # branca / white
 co2 = "#403d4e"  # verde / green
@@ -16,7 +16,7 @@ co3 = "#38576b"  # valor / value
 co4 = "#403d3d"  # letra / letters
 
 
-
+#classe relocio para criar relogio na tela
 class Relogio(Canvas):
     def __init__(self, master, **kwargs):
         super().__init__(master, width=150, height=150, bg=co4, **kwargs)
@@ -49,12 +49,14 @@ class Usuario:
         self.genero = genero
         self.senha = senha
 
+    #metodo para calcular o IMC do usuario
     def calcularIMC(self):
         if self.altura > 0:
             return self.peso / (self.altura ** 2)
         else:
             return 0
-
+        
+    #Metodo para classificar o IMC do usuario
     def classificar_imc(self, imc):
         if imc < 18.5:
             return 'Abaixo do peso', 'Recomenda-se uma avaliação nutricional para ganhar peso de forma saudável.'
@@ -64,7 +66,8 @@ class Usuario:
             return 'Sobrepeso', 'Considere ajustar sua dieta e aumentar a atividade física para alcançar um peso saudável.'
         else:
             return 'Obesidade', 'É importante procurar orientação médica para um plano de perda de peso e saúde.'
-
+    
+    #metodo para retorna um dicionário contendo todos os atributos do usuário.
     def registrar(self):
         return {
             'nome': self.nome,
@@ -75,18 +78,22 @@ class Usuario:
             'senha': self.senha
         }
 
-
+#Classe do inicio do programa
 class InicioDoPrograma:
+
+    #metodo para carregar as credenciais do usuario
     def __init__(self):
         self.credenciais = self.carregar_credenciais()
+        # Define os atributos da janela de login e da janela principal como None.
         self.janela_login = None
         self.janela_principal = None
         
-        
+    # Obtem nome de usuário e a senha dos campos de entrada da interface gráfica.
     def entrar(self):
         nome = e_nome.get()
         senha = e_pass.get()
 
+        #faz uma validação dos dados do usuario colocados na interface grafica
         if nome in self.credenciais:
             usuario = self.credenciais[nome]
             if usuario.senha == senha:
@@ -98,12 +105,15 @@ class InicioDoPrograma:
         else:
             messagebox.showwarning('Erro', 'Nome de usuário inválido')
 
+
+    #metodo para salvar as atividades concluidas no arquivo json com data e hoje da execução
     def salvar_tarefas_concluidas(self, nome_exercicio, repeticoes,):
-        data_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data_atual = datetime.now().strftime("%Y-%m-%d %H:%M:%S")# Obtém a data e hora atual no formato YYYY-MM-DD HH:MM:SS
+        # Cria um dicionário para representar a tarefa concluída
         tarefa = {
-            "data": data_atual,
-            "exercicio": nome_exercicio,
-            "repeticoes": repeticoes
+            "data": data_atual, # Armazena a data e hora em que a tarefa foi concluída
+            "exercicio": nome_exercicio,# Armazena o nome do exercício realizado
+            "repeticoes": repeticoes # Armazena o número de repetições realizadas
         }
 
         if os.path.exists('tarefas_concluidas.json'):
@@ -117,6 +127,8 @@ class InicioDoPrograma:
         with open('tarefas_concluidas.json', 'w') as file:
             json.dump(tarefas, file, indent=4)
 
+    #Metodo para limpar a lista de exercicio quando é chamada, para que o historico seja apagado e não fique um historico muito longo das atividades
+    #solução temporaria até que seja implementado um banco de dados e na tela de historico de atividades seja criado filtros por data.
     def limpar_exercicios(self):
         try:
             with open('exercicios.txt', 'w') as file:
@@ -125,19 +137,22 @@ class InicioDoPrograma:
         except IOError as e:
             print(f"Erro ao limpar o arquivo de exercícios: {e}")
 
-    def cadastrar(self):
+    #metodo para cadastrar
+    def cadastrar(self):#obtem os valores dos campos de entrada de dados do formulario de cadastro
         nome = e_nome_cad.get()
         idade_str = e_idade_cad.get()
         peso_str = e_peso_cad.get()
         altura_str = e_altura_cad.get().replace(',', '.')
         senha = e_senha_cad.get()
 
-        genero = var_genero.get()
+        genero = var_genero.get()#Obtem o  valor selecionado pelo genero
 
-        if genero == 'Não especificado':
+        if genero == 'Não especificado':# Verifica se o gênero foi especificado. Se não, exibe uma mensagem de aviso e encerra a função.
             messagebox.showwarning('Erro', 'Você deve selecionar um gênero.')
             return
 
+         # Tenta converter os valores de idade, peso e altura para os tipos corretos (int e float).
+        # Se algum valor não puder ser convertido, exibe uma mensagem de erro e encerra a função.
         try:
             idade = int(idade_str)
             peso = int(peso_str)
@@ -147,36 +162,43 @@ class InicioDoPrograma:
                 'Erro', 'Por favor, insira valores válidos.')
             return
 
+          
+        # Verifica se o nome de usuário já existe nas credenciais armazenadas.
+        # Se o nome já estiver presente, exibe uma mensagem de erro e encerra a função.
         if nome in self.credenciais:
             messagebox.showwarning('Erro', 'Usuário já existe')
-        else:
-            usuario = Usuario(nome, idade, peso, altura, genero, senha)
-            self.credenciais[nome] = usuario
-            self.salvar_credenciais()
-            messagebox.showinfo('Sucesso', 'Usuário cadastrado com sucesso')
+        else: 
+            usuario = Usuario(nome, idade, peso, altura, genero, senha)# Se o nome de usuário não existir, cria um novo objeto Usuario com os dados fornecidos.
+            self.credenciais[nome] = usuario# Adiciona o novo usuário ao dicionário de credenciais.
+            self.salvar_credenciais()# Salva as credenciais atualizadas.
+            messagebox.showinfo('Sucesso', 'Usuário cadastrado com sucesso')# Fecha a janela de cadastro
             #janela_cadastro.destroy()
 
-    def carregar_credenciais(self):
+
+    #Método para carregar as credenciais salva no arquivo .json
+    def carregar_credenciais(self):    # Verifica se o arquivo 'usuarios.json' não existe no diretório atual.
         if not os.path.exists('usuarios.json'):
             with open('usuarios.json', 'w') as file:
                 json.dump({}, file)
 
-        credenciais = {}
+        credenciais = {} # Inicializa um dicionário vazio para armazenar as credenciais dos usuários.
 
         try:
-            with open('usuarios.json', 'r') as file:
-                data = json.load(file)
-                if not isinstance(data, dict):
+            with open('usuarios.json', 'r') as file:# Tenta abrir o arquivo 'usuarios.json' em modo leitura.
+                data = json.load(file) #Tenta carregar o conteúdo do arquivo como um objeto JSON.
+                if not isinstance(data, dict):# Se não for um dicionário, levanta uma exceção indicando que o conteúdo não é um JSON válido.
                     raise ValueError(
                         "O arquivo JSON não contém um objeto JSON válido.")
 
-                for nome, info in data.items():
+                for nome, info in data.items():# Itera sobre os itens do dicionário carregado (onde cada item é uma entrada de usuário).
                     idade = info.get('idade', 0)
                     peso = info.get('peso', 0)
                     altura = info.get('altura', 0.0)
                     genero = info.get('genero', 'desconhecido')
                     senha = info.get('senha', '')
 
+
+                     # Cria um objeto Usuario com os dados extraídos e adiciona ao dicionário 'credenciais'.
                     credenciais[nome] = Usuario(
                         nome,
                         idade,
@@ -185,16 +207,16 @@ class InicioDoPrograma:
                         genero,
                         senha
                     )
-        except (json.JSONDecodeError, ValueError) as e:
+        except (json.JSONDecodeError, ValueError) as e:# Se ocorrer um erro ao carregar ou processar o arquivo JSON, imprime uma mensagem de erro.
             print(f"Erro ao carregar credenciais: {e}")
 
         return credenciais
 
-    def salvar_credenciais(self):
+    def salvar_credenciais(self):    # Cria um dicionário onde cada chave é o nome do usuário e o valor é o resultado do método registrar
         data = {nome: usuario.registrar()
                 for nome, usuario in self.credenciais.items()}
-        with open('usuarios.json', 'w') as file:
-            json.dump(data, file)
+        with open('usuarios.json', 'w') as file:# Abre o arquivo 'usuarios.json' no modo de escrita ('w'). Se o arquivo já existir, ele será sobrescrito.
+            json.dump(data, file)  # Converte o dicionário 'data' para uma string JSON e grava no arquivo.
 
     def carregar_exercicios(self):
         try:
@@ -208,33 +230,33 @@ class InicioDoPrograma:
         if self.janela_principal:
             self.janela_principal.destroy()  # Fecha a janela principal
 
-        janela = ctk.CTk()
-        janela.title("Tela Principal")
-        janela.geometry("500x400")
+        janela = ctk.CTk()# Cria uma nova janela principal usando o CTk
+        janela.title("Tela Principal")#definição do nome da janela
+        janela.geometry("500x400")#definição do tamanho da janela
 
-        label_nova = ctk.CTkLabel(janela, text=f"Bem-vindo, {nome}!")
+        label_nova = ctk.CTkLabel(janela, text=f"Bem-vindo, {nome}!")#cria label da janela
         label_nova.pack(pady=20)
 
-        b_dados_usuario = ctk.CTkButton(janela, text='Dados do Usuário', command=lambda: self.dados_usuario(nome),
+        b_dados_usuario = ctk.CTkButton(janela, text='Dados do Usuário', command=lambda: self.dados_usuario(nome),#cria um botão para exibir dados do usuario
                                         width=200, height=40, font=('Ivy', 12), fg_color=co2, bg_color=co2)
-        b_dados_usuario.pack(pady=10)
+        b_dados_usuario.pack(pady=10)#adiciona a janela o espaçamento vertical de 20p
 
-        b_exercicios = ctk.CTkButton(janela, text='Exercícios', command=lambda: self.exercicios(nome),
+        b_exercicios = ctk.CTkButton(janela, text='Exercícios', command=lambda: self.exercicios(nome),# Cria um botão para exibir os exercícios
                                      width=200, height=40, font=('Ivy', 12), fg_color=co2, bg_color=co2)
         b_exercicios.pack(pady=10)
 
-        b_ultimos_exercicios = ctk.CTkButton(janela, text='Últimos Exercícios', command=self.mostrar_ultimos_exercicios,
+        b_ultimos_exercicios = ctk.CTkButton(janela, text='Últimos Exercícios', command=self.mostrar_ultimos_exercicios,#cria um botão para exibir os utimos exercicios
                                          width=200, height=40, font=('Ivy', 12), fg_color=co2, bg_color=co2)
         b_ultimos_exercicios.pack(pady=10)
 
-        b_Fechar = ctk.CTkButton(janela, text='Fechar', command=janela.destroy,
+        b_Fechar = ctk.CTkButton(janela, text='Fechar', command=janela.destroy,#cria um botão fechar assim encerrando o programa
                                  width=200, height=40, font=('Ivy', 12), fg_color=co3, bg_color=co4)
         b_Fechar.pack(pady=10)
 
         self.janela_principal = janela  # Atualiza a referência da janela principal
         janela.mainloop()
 
-    def mostrar_ultimos_exercicios(self):
+    def mostrar_ultimos_exercicios(self):#metodo para criação de uma nova janela
         janela_exercicios = ctk.CTkToplevel()
         janela_exercicios.title("Últimos Exercícios")
         janela_exercicios.geometry("600x400")
@@ -481,7 +503,7 @@ class InicioDoPrograma:
         janela_execucao.mainloop()
 
     def carregar_exercicios(self):
-        # Esta função deve carregar os dados dos exercícios salvos de um arquivo
+        # função deve carregar os dados dos exercícios salvos de um arquivo
        
         try:
             with open('exercicios.txt', 'r') as file:

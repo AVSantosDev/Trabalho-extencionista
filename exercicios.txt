@@ -1,4 +1,1 @@
-Flexão - Reps: 15, Duração: 60
-Abdominal - Reps: 100, Duração: 240
-Agachamento - Reps: 36, Duração: 60
-Corrida - Reps: 5, Duração: 
+Flexão - Reps: 15, Duração: 10
